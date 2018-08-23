@@ -6,8 +6,8 @@ Menu::Menu()
 {
     const QDateTime now=QDateTime::currentDateTime();
 
-    background=new QImage (":/MainMenu.png");
-    pointer=new QImage(":/Untitled.png");
+    background=new QImage (":/images/MainMenu.png");
+    pointer=new QImage(":/images/Untitled.png");
     MenuItem=1;
 
     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tMenu Stage\r\n";

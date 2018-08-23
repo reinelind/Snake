@@ -5,7 +5,7 @@
 LeaderBoard::LeaderBoard(): scoreQuantity(0)
 {
     highscores.reserve(10);
-    background=new QImage (":/leaderboard.png");
+    background=new QImage (":/images/leaderboard.png");
     const QDateTime now=QDateTime::currentDateTime();
     QString tempString,tempScoreString;
     int tempScore;

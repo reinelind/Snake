@@ -4,8 +4,8 @@
 
 SelectStage::SelectStage()
 {
-    background=new QImage (":/levelselect.png");
-    pointer=new QImage(":/Untitled.png");
+    background=new QImage (":/images/levelselect.png");
+    pointer=new QImage(":/images/Untitled.png");
     MenuItem=1;
     const QDateTime now=QDateTime::currentDateTime();
 

@@ -37,6 +37,6 @@ HEADERS  += gamewidget.h \
     AppleObject.h
 
 RESOURCES += \
-    GameRes.qrc
+    gameresources.qrc
 
 OTHER_FILES +=

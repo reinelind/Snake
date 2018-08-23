@@ -11,7 +11,7 @@ GameStage::GameStage(int i)
     s.reserve(3);
     a=new AppleObject;
     GameStage::RunGame();
-    background=new QImage (":/gameprocess.png");
+    background=new QImage (":/images/gameprocess.png");
     const QDateTime now=QDateTime::currentDateTime();
     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tGame Stage\r\n";
 

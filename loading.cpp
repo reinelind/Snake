@@ -4,7 +4,7 @@
 
 Loading::Loading()
 {
-    background=new QImage (":/IMAGE.png");
+    background=new QImage (":/images/IMAGE.png");
     timer=new QTimer();
     connect(timer, SIGNAL(timeout()),this,SLOT(TimerSlot()));
      timer->start(50);
