@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>IMAGE.png</file>
+        <file>MainMenu.png</file>
+        <file>Untitled.png</file>
+        <file>leaderboard.png</file>
+        <file>gameprocess.png</file>
+        <file>levelselect.png</file>
+    </qresource>
+</RCC>
