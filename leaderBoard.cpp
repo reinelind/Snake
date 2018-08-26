@@ -1,5 +1,5 @@
-#include "leaderBoard.h"
-#include "menu.h"
+#include "LeaderBoard.h"
+#include "Menu.h"
 
 
 LeaderBoard::LeaderBoard(): scoreQuantity(0)
@@ -8,7 +8,7 @@ LeaderBoard::LeaderBoard(): scoreQuantity(0)
     background=new QImage (":/images/leaderboard.png");
     const QDateTime now=QDateTime::currentDateTime();
     QString tempString,tempScoreString;
-    int tempScore;
+
 
     qDebug() << now.toString("yyyy-MM-dd hh:mm:ss") << now.timeZoneAbbreviation() << "\tLeaderBoard Stage\r\n";
 
@@ -18,7 +18,7 @@ LeaderBoard::LeaderBoard(): scoreQuantity(0)
     {
         while (!table.atEnd())
         {
-
+            int tempScore;
             QString str=table.readLine();
             tempString=str.split(" ")[0];
             tempScore=str.split(" ")[1].toInt();
@@ -71,12 +71,10 @@ void LeaderBoard::keyPressEvent(GameWidget * widget, QKeyEvent *event)
         widget->update();
         delete this;
     }
-
-
 }
 
 template <typename F, typename S>
-void LeaderBoard::mySortTable(std::vector <std::pair<F,S> >& myVectorOfPairs)
+void LeaderBoard::mySortTable(std::vector <std::pair<F,S> > & myVectorOfPairs)
 {
     for (int i=0; i<scoreQuantity-1; i++)
      for (int j=i+1; j<scoreQuantity; j++)

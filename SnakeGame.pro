@@ -14,27 +14,27 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        gamewidget.cpp \
     loading.cpp \
     menu.cpp \
     gameStage.cpp \
     leaderBoard.cpp \
     selectStage.cpp \
     SnakeObject.cpp \
-    AppleObject.cpp
+    AppleObject.cpp \
+    GameWidget.cpp
 
-HEADERS  += gamewidget.h \
+HEADERS  += \
     Game.h \
-    state.h \
-    loading.h \
-    menu.h \
-    selectStage.h \
-    leaderBoard.h \
-    gameStage.h \
-    debuglog.h \
     SnakeObject.h \
-    gameobject.h \
-    AppleObject.h
+    AppleObject.h \
+    State.h \
+    Menu.h \
+    GameStage.h \
+    Gameobject.h \
+    Gamewidget.h \
+    LeaderBoard.h \
+    Loading.h \
+    SelectStage.h
 
 RESOURCES += \
     gameresources.qrc

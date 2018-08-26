@@ -1,5 +1,5 @@
-#include "loading.h"
-#include "menu.h"
+#include "Loading.h"
+#include "Menu.h"
 
 
 Loading::Loading()

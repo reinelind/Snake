@@ -5,6 +5,7 @@
 #include "SelectStage.h"
 #include "LeaderBoard.h"
 
+#include <thread>
 #include <mutex>
 #include <condition_variable>
 
@@ -20,16 +21,13 @@ GameStage::GameStage(int i)
     const QDateTime now=QDateTime::currentDateTime();
     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tGame Stage\r\n";
     GameStage::RunGame();
-
-
-
 }
 
 void GameStage::RunGame()
 {
     apple->create();
 
-    for (uint i=0; i<=3; i++)
+    for (uint i=0; i <= 3; i++)
     {
         snkVec.push_back(snake);
     }
@@ -45,11 +43,12 @@ void GameStage::RunGame()
     }
 
     timer=new QTimer();
-    connect(timer, SIGNAL(timeout()),this,SLOT(drawSnake()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(moveSnake()));
     timer->start(Speed);
+    
 }
 
-void GameStage::drawSnake()
+void GameStage::moveSnake()
 {
     for (uint i=(snkVec.size())-1;i>0;--i)
     {
@@ -65,7 +64,6 @@ void GameStage::drawSnake()
     if ((snkVec[0].x>=(apple->x)-10 && snkVec[0].x<=(apple->x)+10)
             && (snkVec[0].y>=(apple->y)-10 && snkVec[0].y<=(apple->y)+10))
     {
-
         snkVec.push_back(snake);
         apple->create();
         snkVec[(snkVec.size())-1].create();

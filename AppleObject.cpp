@@ -8,9 +8,19 @@ AppleObject::AppleObject()
     srand(time(NULL));
 }
 
+QRectF AppleObject::getRect() const
+{
+    return rectParams;
+}
+
 void AppleObject::draw()
 {
 
+}
+
+QColor AppleObject::getColor () const
+{
+    return color;
 }
 
 void AppleObject::setY()
@@ -34,6 +44,6 @@ void AppleObject::setShape()
 void AppleObject::setColor()
 {
     QColor sampleColor(Qt::red);
-    clr=sampleColor;
+    color=sampleColor;
 }
 

@@ -1,14 +1,14 @@
-#include "menu.h"
-#include "selectStage.h"
-#include "leaderBoard.h"
+#include "Menu.h"
+#include "SelectStage.h"
+#include "LeaderBoard.h"
 
 Menu::Menu()
+    :MenuItem (1)
 {
     const QDateTime now=QDateTime::currentDateTime();
 
     background=new QImage (":/images/MainMenu.png");
     pointer=new QImage(":/images/Untitled.png");
-    MenuItem=1;
 
     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tMenu Stage\r\n";
 }

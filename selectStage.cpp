@@ -1,12 +1,12 @@
-#include "selectStage.h"
-#include "menu.h"
-#include "gameStage.h"
+#include "SelectStage.h"
+#include "Menu.h"
+#include "GameStage.h"
 
 SelectStage::SelectStage()
+    : MenuItem (1)
 {
     background=new QImage (":/images/levelselect.png");
     pointer=new QImage(":/images/Untitled.png");
-    MenuItem=1;
     const QDateTime now=QDateTime::currentDateTime();
 
     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tSelect Stage\r\n";
@@ -87,12 +87,12 @@ void SelectStage::keyPressEvent(GameWidget * widget, QKeyEvent * event){
             delete this;
             break;
         case 2:
-            widget->setCurrent(new GameStage(170));
+            widget->setCurrent(new GameStage(130));
             widget->update();
             delete this;
             break;
         case 3:
-            widget->setCurrent(new GameStage(140));
+            widget->setCurrent(new GameStage(110));
             widget->update();
             delete this;
             break;

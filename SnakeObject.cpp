@@ -1,6 +1,19 @@
 #include "SnakeObject.h"
 
 
+SnakeObject::SnakeObject()
+    : num (3), dir (RIGHT) {}
+
+void SnakeObject::setDir(SnakeObject::DIRECTION direction)
+{
+    dir = direction;
+}
+
+SnakeObject::DIRECTION SnakeObject::getDir()
+{
+    return dir;
+}
+
 void SnakeObject::draw()
 {
 
@@ -16,6 +29,11 @@ void SnakeObject::setY()
 }
 
 
+QColor SnakeObject::getColor() const
+{
+    return color;
+}
+
 void SnakeObject::setShape()
 {
      QRectF sampleRectangle (x, y, 10, 10);
@@ -24,9 +42,12 @@ void SnakeObject::setShape()
 
 void SnakeObject::setColor()
 {
-    QColor sampleColor(Qt::white);
-    clr = sampleColor;
+    color = QColor(Qt::GlobalColor::white);
+
 }
+
+
+
 
 
 
