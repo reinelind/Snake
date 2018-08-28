@@ -1,7 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "Gamewidget.h"
+#include "GameWidget.h"
 
 class State : public QObject
 {

@@ -2,30 +2,25 @@
 
 
 SnakeObject::SnakeObject()
-    : num (3), dir (RIGHT) {}
+    : num (3) {}
 
-void SnakeObject::setDir(SnakeObject::DIRECTION direction)
+void SnakeObject::setX(const int x)
 {
-    dir = direction;
+    this->x = x;
+}
+void SnakeObject::setY(const int y)
+{
+    this->y = y;
 }
 
-SnakeObject::DIRECTION SnakeObject::getDir()
+int SnakeObject::getY() const
 {
-    return dir;
+    return y;
 }
 
-void SnakeObject::draw()
+int SnakeObject::getX() const
 {
-
-}
-
-void SnakeObject::setX()
-{
-    x = this->x;
-}
-void SnakeObject::setY()
-{
-    y = this->y;
+    return x;
 }
 
 
@@ -34,16 +29,11 @@ QColor SnakeObject::getColor() const
     return color;
 }
 
-void SnakeObject::setShape()
+void SnakeObject::setObjectTraits()
 {
      QRectF sampleRectangle (x, y, 10, 10);
      rectParams = sampleRectangle;
-}
-
-void SnakeObject::setColor()
-{
-    color = QColor(Qt::GlobalColor::white);
-
+     color = QColor(Qt::GlobalColor::white);
 }
 
 

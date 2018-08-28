@@ -5,21 +5,13 @@ class GameObject
 {
 
 public:
-   void create()
-    {
-        setX();
-        setY();
-        setShape();
-        setColor();
-        draw();
-    }
+    virtual void setX(const int) = 0;
+    virtual void setY(const int) = 0;
+    virtual int getX() const = 0;
+    virtual int getY() const = 0;
+    virtual void setObjectTraits() = 0;
 
-private:
-   virtual void setShape()=0;
-   virtual void setColor()=0;
-   virtual void draw()=0;
-   virtual void setX()=0;
-   virtual void setY()=0;
+    virtual ~GameObject(){}
 
 };
 

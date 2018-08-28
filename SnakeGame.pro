@@ -22,7 +22,9 @@ SOURCES +=\
     Loading.cpp \
     main.cpp \
     Menu.cpp \
-    SelectStage.cpp
+    SelectStage.cpp \
+    applefactory.cpp \
+    SnakeFactory.cpp
 
 HEADERS  += \
     Game.h \
@@ -35,7 +37,10 @@ HEADERS  += \
     Gamewidget.h \
     LeaderBoard.h \
     Loading.h \
-    SelectStage.h
+    SelectStage.h \
+    factory.h \
+    AppleFactory.h \
+    SnakeFactory.h
 
 RESOURCES += \
     gameresources.qrc

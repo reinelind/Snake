@@ -2,48 +2,38 @@
 #include "stdlib.h"
 #include "time.h"
 
+#include <chrono>
 
-AppleObject::AppleObject()
-{
-    srand(time(NULL));
-}
 
-QRectF AppleObject::getRect() const
-{
-    return rectParams;
-}
 
-void AppleObject::draw()
+
+void AppleObject::setY(const int y)
 {
 
+    this->y=y;
 }
 
-QColor AppleObject::getColor () const
+int AppleObject::getX() const
 {
-    return color;
+    return x;
 }
 
-void AppleObject::setY()
+int AppleObject::getY() const
+{
+    return y;
+
+}
+
+void AppleObject::setX(const int x)
 {
 
-    y=rand()%490+50;
+    this->x = x;
 }
 
-void AppleObject::setX()
-{
-
-    x=rand()%490+50;
-}
-
-void AppleObject::setShape()
+void AppleObject::setObjectTraits()
 {
      QRectF sampleRectangle(x,y,10,10);
      rectParams=sampleRectangle;
-}
-
-void AppleObject::setColor()
-{
-    QColor sampleColor(Qt::red);
-    color=sampleColor;
+     color = QColor(Qt::red);
 }
 

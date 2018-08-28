@@ -1,17 +1,23 @@
 #include "GameStage.h"
 #include "Menu.h"
-#include "SnakeObject.h"
+#include "GameStage.h"
 #include "AppleObject.h"
 #include "SelectStage.h"
 #include "LeaderBoard.h"
 
-GameStage::GameStage(int i)
-    : Speed (i), score (0), entered (false)
+GameStage::GameStage(int sp)
+    : Speed (sp), score (0), entered (false)
 {
-    snake.create();
-    snkVec.reserve(3);
+    srand(static_cast<ulong>(time(nullptr)));
 
-    apple=new AppleObject;
+    snakeFactory = new SnakeFactory;
+    appleFactory = new AppleFactory;
+
+    snake = snakeFactory->create();
+    apple = appleFactory->create();
+
+
+    snkVec.reserve(3);
 
     background=new QImage (":/images/gameprocess.png");
     const QDateTime now=QDateTime::currentDateTime();
@@ -21,54 +27,64 @@ GameStage::GameStage(int i)
 
 void GameStage::RunGame()
 {
-    apple->create();
+    apple->setX(rand()%490+50);
+    apple->setY(rand()%490+50);
+
+    apple->setObjectTraits();
 
     for (uint i=0; i <= 3; i++)
     {
         snkVec.push_back(snake);
+        snkVec[i]->setObjectTraits();
     }
 
-    snkVec[0].x=150;
-    snkVec[0].y=120;
+    snkVec.front()->setX(150);
+    snkVec.front()->setY(180);
 
 
     for (uint i=1; i<(snkVec.size()); i++)
     {
-        snkVec[i].x=snkVec[i-1].x-10;
-        snkVec[i].y=snkVec[0].y;
+        snkVec[i]->setX(snkVec[i-1]->getX()-10);
+        snkVec[i]->setY(snkVec.front()->getY());
     }
 
     timer=new QTimer();
     connect(timer, SIGNAL(timeout()),this,SLOT(moveSnake()));
     timer->start(Speed);
-    
 }
 
 void GameStage::moveSnake()
 {
-    for (uint i=(snkVec.size())-1;i>0;--i)
+    for (ulong i=(snkVec.size())-1;i>0;--i)
     {
-        snkVec[i].x=snkVec[i-1].x;
-        snkVec[i].y=snkVec[i-1].y;
+        snkVec[i]->setX(snkVec[i-1]->getX());
+        snkVec[i]->setY(snkVec[i-1]->getY());
     }
 
-    if (snkVec[0].getDir()==SnakeObject::DOWN)    snkVec[0].y+=10;
-    if (snkVec[0].getDir()==SnakeObject::LEFT)    snkVec[0].x-=10;
-    if (snkVec[0].getDir()==SnakeObject::RIGHT)   snkVec[0].x+=10;
-    if (snkVec[0].getDir()==SnakeObject::UP)      snkVec[0].y-=10;
+    if (this->getDir()==GameStage::DOWN)
+        snkVec.front()->setY(snkVec.front()->getY()+10);
+    if (this->getDir()==GameStage::LEFT)
+        snkVec.front()->setX(snkVec.front()->getX()-10);
+    if (this->getDir()==GameStage::RIGHT)
+        snkVec.front()->setX(snkVec.front()->getX()+10);
+    if (this->getDir()==GameStage::UP)
+        snkVec.front()->setY(snkVec.front()->getY()+10);
 
-    if ((snkVec[0].x>=(apple->x)-10 && snkVec[0].x<=(apple->x)+10)
-            && (snkVec[0].y>=(apple->y)-10 && snkVec[0].y<=(apple->y)+10))
+    if ((snkVec.front()->getX()>=(apple->getX())-10
+         && snkVec.front()->getX()<=(apple->getX())+10)
+            && (snkVec.front()->getY()>=(apple->getY())-10
+                && snkVec.front()->getY()<=(apple->getY())+10))
     {
         snkVec.push_back(snake);
-        apple->create();
-        snkVec[(snkVec.size())-1].create();
+        apple->setX(rand()%490+50);
+        apple->setY(rand()%490+50);
+        snkVec.back();
         ++score;
     }
     for (int i=1;i<(snkVec.size()); i++)
-        if (snkVec[0].x==snkVec[i].x && snkVec[0].y==snkVec[i].y) { timer->stop(); setHighscore();}
+        if (snkVec.front()->getX()==snkVec[i]->getX() && snkVec.front()->getY()==snkVec[i]->getY()) { timer->stop(); setHighscore();}
 
-    if ((snkVec[0].x>547 || snkVec[0].x<50) ||(snkVec[0].y<50 || snkVec[0].y>550)) { timer->stop(); setHighscore();}
+    if ((snkVec.front()->getX()>547 || snkVec.front()->getX()<50) ||(snkVec.front()->getY()<50 || snkVec.front()->getY()>550)) { timer->stop(); setHighscore();}
 }
 
 void GameStage::setHighscore()
@@ -106,16 +122,16 @@ void GameStage::BackgroundLoad(GameWidget * widget)
     painter->begin(widget);
     painter->setRenderHints(QPainter::Antialiasing);
     painter->drawImage(0,0,background->scaled(widget->size()));
-    for (int i=0; i<(snkVec.size()); i++)
+    for (auto vec : snkVec)
     {
-        painter->setPen(snkVec[i].getColor());
-        painter->fillRect(QRectF(snkVec[i].x,snkVec[i].y,10,10),snkVec[i].getColor());
-        painter->drawRect(snkVec[i].x,snkVec[i].y,10,10);
+        painter->setPen(Qt::white);
+        painter->fillRect(QRectF(vec->getX(),vec->getY(),10,10),Qt::white);
+        painter->drawRect(vec->getX(),vec->getY(),10,10);
     }
 
-    painter->setBrush(apple->getColor());
-    painter->setPen(apple->getColor());
-    painter->drawEllipse(apple->getRect());
+    painter->setBrush(Qt::red);
+    painter->setPen(Qt::red);
+    painter->drawEllipse(QRectF(apple->getX(),apple->getY(),10,10));
     QFont font=widget->font();
     font.setPointSize(30);
     font.setItalic(true);
@@ -141,23 +157,34 @@ void GameStage::keyPressEvent(GameWidget * widget, QKeyEvent * event){
         delete this;
     }
 
-    if (event->key()==Qt::Key_Up && snkVec[0].getDir()!=SnakeObject::DOWN)
+    if (event->key()==Qt::Key_Up && this->getDir()!=GameStage::DOWN)
     {
-        snkVec[0].setDir(SnakeObject::UP);
+        this->setDir(GameStage::UP);
 
     }
-    if (event->key()==Qt::Key_Down && snkVec[0].getDir()!=SnakeObject::UP)
+    if (event->key()==Qt::Key_Down && this->getDir()!=GameStage::UP)
     {
-        snkVec[0].setDir(SnakeObject::DOWN);
+        this->setDir(GameStage::DOWN);
     }
-    if (event->key()==Qt::Key_Right&& snkVec[0].getDir()!=SnakeObject::LEFT)
+    if (event->key()==Qt::Key_Right&& this->getDir()!=GameStage::LEFT)
     {
-        snkVec[0].setDir(SnakeObject::RIGHT);
+        this->setDir(GameStage::RIGHT);
     }
-    if (event->key()==Qt::Key_Left&& snkVec[0].getDir()!=SnakeObject::RIGHT)
+    if (event->key()==Qt::Key_Left&& this->getDir()!=GameStage::RIGHT)
     {
-        snkVec[0].setDir(SnakeObject::LEFT);
+        this->setDir(GameStage::LEFT);
     }
 }
+
+void GameStage::setDir(GameStage::DIRECTION direction)
+{
+    dir = direction;
+}
+
+GameStage::DIRECTION GameStage::getDir()
+{
+    return dir;
+}
+
 
 

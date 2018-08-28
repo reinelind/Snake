@@ -2,14 +2,15 @@
 #define GAMESTAGE_H
 #include "State.h"
 #include "Gamewidget.h"
-#include "SnakeObject.h"
-#include "AppleObject.h"
-
+#include "applefactory.h"
+#include "gamewidget.h"
+#include "snakefactory.h"
 #include <deque>
 
 
 class GameStage: public State
 {
+    enum DIRECTION {LEFT,UP,RIGHT,DOWN};
 
     Q_OBJECT
 public:
@@ -24,18 +25,22 @@ public:
 
     GameStage(int i);
 
+    void createBlock ();
+    void setDir (DIRECTION);
+    DIRECTION getDir ();
 
 private:
-
-    void createBlock ();
 
     int Speed;
     QPainter *painter;
     QImage *background;
-    std::vector <SnakeObject> snkVec;
-    SnakeObject snake;
-    AppleObject * apple;
+    std::vector <GameObject*> snkVec;
     QTimer *timer;
+    DIRECTION dir;
+    AppleFactory * appleFactory;
+    SnakeFactory * snakeFactory;
+    GameObject * apple;
+    GameObject * snake;
 
     unsigned int score;
     bool entered;

@@ -3,27 +3,22 @@
 #include "Gameobject.h"
 
 
-class AppleObject: public GameObject
+class AppleObject final : public GameObject
 {
 
 public:
-    int x,y;
-    AppleObject();
-    QColor getColor() const;
-    QRectF getRect() const;
+    void setX(const int) override;
+    void setY(const int) override;
+    int getX() const     override;
+    int getY() const     override;
+    void setObjectTraits() override;
 
 
-
-private:
-
+private:   
     QRectF rectParams;
     QColor color;
+    int x,y;
 
-    void setShape();
-    void setColor();
-    void draw();
-    void setX();
-    void setY();
 
 };
 
