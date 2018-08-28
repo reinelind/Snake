@@ -9,7 +9,7 @@ public:
     void BackgroundLoad(GameWidget *);
     void mousePressEvent(GameWidget*,QMouseEvent*);
     void keyPressEvent(GameWidget*, QKeyEvent*);
-    LeaderBoard();// default constructor
+    LeaderBoard();
 
     template <typename T, typename S>
     void mySortTable(std::vector<std::pair<T,S> > &);

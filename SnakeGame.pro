@@ -13,15 +13,16 @@ TARGET = SnakeGame
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-    loading.cpp \
-    menu.cpp \
-    gameStage.cpp \
-    leaderBoard.cpp \
-    selectStage.cpp \
+SOURCES +=\
     SnakeObject.cpp \
     AppleObject.cpp \
-    GameWidget.cpp
+    GameWidget.cpp \
+    GameStage.cpp \
+    LeaderBoard.cpp \
+    Loading.cpp \
+    main.cpp \
+    Menu.cpp \
+    SelectStage.cpp
 
 HEADERS  += \
     Game.h \
