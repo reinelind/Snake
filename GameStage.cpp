@@ -5,12 +5,8 @@
 #include "SelectStage.h"
 #include "LeaderBoard.h"
 
-#include <thread>
-#include <mutex>
-#include <condition_variable>
-
 GameStage::GameStage(int i)
-    : Speed (i), entered (), score (0)
+    : Speed (i), score (0), entered (false)
 {
     snake.create();
     snkVec.reserve(3);
@@ -79,7 +75,7 @@ void GameStage::setHighscore()
 {
 
 
-    QString str = QInputDialog::getText( 0,"GAME OVER","Enter Name:",QLineEdit::Normal,"",&entered);
+    QString str = QInputDialog::getText( nullptr,"GAME OVER","Enter Name:",QLineEdit::Normal,"",&entered);
     if(entered)
     {
 

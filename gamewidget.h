@@ -22,7 +22,7 @@ class GameWidget : public QWidget
 public:
     class State *current;
 
-    GameWidget(QWidget *parent = 0);
+    GameWidget(QWidget *parent = nullptr);
 
     void paintEvent(QPaintEvent *);
 
@@ -32,7 +32,7 @@ public:
     void setCurrent(State *s);
     void BackgroundLoad(void);
 
-    void quit(void);
+    void quit [[noreturn]] (void);
 private:
 
     QImage *image;

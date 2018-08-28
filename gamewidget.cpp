@@ -39,7 +39,7 @@ GameWidget::GameWidget(QWidget *parent)
 
 }
 
-void GameWidget::quit()
+ void GameWidget::quit [[noreturn]] ()
 {   const QDateTime now=QDateTime::currentDateTime();
     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tExiting...\r\n";
     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tSUCCESSFUL END OF SESSION\r\n";

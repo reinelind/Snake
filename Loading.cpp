@@ -7,7 +7,7 @@ Loading::Loading()
     background=new QImage (":/images/IMAGE.png");
     timer=new QTimer();
     connect(timer, SIGNAL(timeout()),this,SLOT(TimerSlot()));
-     timer->start(50);
+     timer->start(20);
      const QDateTime now=QDateTime::currentDateTime();
      qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tLoading Stage\r\n";
 }

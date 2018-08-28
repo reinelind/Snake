@@ -17,6 +17,8 @@ public:
     void mousePressEvent(GameWidget*,QMouseEvent*);
     void keyPressEvent(GameWidget*, QKeyEvent*);
 
+
+    void drawSnake();
     void RunGame();
     void setHighscore();
 
