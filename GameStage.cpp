@@ -6,14 +6,13 @@
 #include "LeaderBoard.h"
 
 GameStage::GameStage(int sp)
-    : Speed (sp), score (0), entered (false)
+    : Speed (sp), score (0), entered (false), dir(DIRECTION::RIGHT)
 {
     srand(static_cast<ulong>(time(nullptr)));
 
     snakeFactory = new SnakeFactory;
     appleFactory = new AppleFactory;
 
-    snake = snakeFactory->create();
     apple = appleFactory->create();
 
 
@@ -34,8 +33,7 @@ void GameStage::RunGame()
 
     for (uint i=0; i <= 3; i++)
     {
-        snkVec.push_back(snake);
-        snkVec[i]->setObjectTraits();
+        snkVec.push_back(snakeFactory->create());
     }
 
     snkVec.front()->setX(150);
@@ -45,7 +43,8 @@ void GameStage::RunGame()
     for (uint i=1; i<(snkVec.size()); i++)
     {
         snkVec[i]->setX(snkVec[i-1]->getX()-10);
-        snkVec[i]->setY(snkVec.front()->getY());
+        snkVec[i]->setY(snkVec[i]->getY());
+        snkVec[i]->setObjectTraits();
     }
 
     timer=new QTimer();
@@ -59,6 +58,7 @@ void GameStage::moveSnake()
     {
         snkVec[i]->setX(snkVec[i-1]->getX());
         snkVec[i]->setY(snkVec[i-1]->getY());
+
     }
 
     if (this->getDir()==GameStage::DOWN)
@@ -68,21 +68,26 @@ void GameStage::moveSnake()
     if (this->getDir()==GameStage::RIGHT)
         snkVec.front()->setX(snkVec.front()->getX()+10);
     if (this->getDir()==GameStage::UP)
-        snkVec.front()->setY(snkVec.front()->getY()+10);
+        snkVec.front()->setY(snkVec.front()->getY()-10);
 
     if ((snkVec.front()->getX()>=(apple->getX())-10
          && snkVec.front()->getX()<=(apple->getX())+10)
             && (snkVec.front()->getY()>=(apple->getY())-10
                 && snkVec.front()->getY()<=(apple->getY())+10))
     {
-        snkVec.push_back(snake);
+        snkVec.push_back(snakeFactory->create());
         apple->setX(rand()%490+50);
         apple->setY(rand()%490+50);
         snkVec.back();
         ++score;
     }
     for (int i=1;i<(snkVec.size()); i++)
-        if (snkVec.front()->getX()==snkVec[i]->getX() && snkVec.front()->getY()==snkVec[i]->getY()) { timer->stop(); setHighscore();}
+        if (snkVec.front()->getX()==snkVec[i]->getX()
+                && snkVec.front()->getY()==snkVec[i]->getY())
+        {
+            timer->stop();
+            setHighscore();
+        }
 
     if ((snkVec.front()->getX()>547 || snkVec.front()->getX()<50) ||(snkVec.front()->getY()<50 || snkVec.front()->getY()>550)) { timer->stop(); setHighscore();}
 }
@@ -120,13 +125,12 @@ void GameStage::BackgroundLoad(GameWidget * widget)
 
     painter=new QPainter;
     painter->begin(widget);
-    painter->setRenderHints(QPainter::Antialiasing);
     painter->drawImage(0,0,background->scaled(widget->size()));
-    for (auto vec : snkVec)
+    for (int i = 0; i < snkVec.size(); i++)
     {
         painter->setPen(Qt::white);
-        painter->fillRect(QRectF(vec->getX(),vec->getY(),10,10),Qt::white);
-        painter->drawRect(vec->getX(),vec->getY(),10,10);
+        painter->fillRect(QRectF(snkVec[i]->getX(),snkVec[i]->getY(),10,10),Qt::white);
+        painter->drawRect(snkVec[i]->getX(),snkVec[i]->getY(),10,10);
     }
 
     painter->setBrush(Qt::red);
