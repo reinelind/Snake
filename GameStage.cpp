@@ -87,13 +87,13 @@ void GameStage::moveSnake()
         snkVec.push_back(snakeFactory->create());
         snkVec.back()->setX(snkVec[snkVec.size()-2]->getX());
         snkVec.back()->setX(snkVec[snkVec.size()-2]->getY());
-        snkVec.back()->setObjectTraits();
+
         do
         {
             apple->setX(rand()%490+50);
             apple->setY(rand()%490+50);
         } while (apple->getX() % 10 != 0 && apple->getY() % 10 != 0);
-        snkVec.back();
+        snkVec.back()->setObjectTraits();
         ++score;
     }
     for (uint i=1;i<(snkVec.size()); i++)

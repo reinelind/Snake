@@ -1,5 +1,5 @@
 #include "LeaderBoard.h"
-#include "Menu.h"
+#include "MenuStage.h"
 
 
 LeaderBoard::LeaderBoard(): scoreQuantity(0)
