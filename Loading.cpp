@@ -1,5 +1,5 @@
 #include "Loading.h"
-#include "Menu.h"
+#include "MenuStage.h"
 
 
 Loading::Loading()
@@ -7,7 +7,7 @@ Loading::Loading()
     background=new QImage (":/images/IMAGE.png");
     timer=new QTimer();
     connect(timer, SIGNAL(timeout()),this,SLOT(TimerSlot()));
-     timer->start(1);
+     timer->start(15);
      const QDateTime now=QDateTime::currentDateTime();
      qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tLoading Stage\r\n";
 }

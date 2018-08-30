@@ -1,5 +1,5 @@
 #include "SelectStage.h"
-#include "Menu.h"
+#include "MenuStage.h"
 #include "GameStage.h"
 
 SelectStage::SelectStage()
@@ -82,17 +82,17 @@ void SelectStage::keyPressEvent(GameWidget * widget, QKeyEvent * event){
         switch (menuItem)
         {
         case SELECT_ITEM :: EASY:
-            widget->setCurrent(new GameStage(200));
+            widget->setCurrent(new GameStage(150));
             widget->update();
             delete this;
             break;
         case SELECT_ITEM :: MEDIUM:
-            widget->setCurrent(new GameStage(130));
+            widget->setCurrent(new GameStage(100));
             widget->update();
             delete this;
             break;
         case SELECT_ITEM :: HARD:
-            widget->setCurrent(new GameStage(110));
+            widget->setCurrent(new GameStage(70));
             widget->update();
             delete this;
             break;
