@@ -7,6 +7,8 @@
 
 class Menu: public State
 {
+
+    enum MENU_ITEM {START, HIGHSCORES, QUIT};
 public:
     void BackgroundLoad(GameWidget *);
     void mousePressEvent(GameWidget*,QMouseEvent*);
@@ -14,7 +16,7 @@ public:
     Menu();
 
 private:
-    int MenuItem;
+    MENU_ITEM menuItem;
     QPainter *painter;
     QImage *background,*pointer;
 };

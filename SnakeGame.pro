@@ -5,7 +5,10 @@
 #-------------------------------------------------
 CONFIG += c++14
 
+
 QT       += core gui
+
+RC_ICONS += snakeIcon.ico
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,7 +34,6 @@ HEADERS  += \
     SnakeObject.h \
     AppleObject.h \
     State.h \
-    Menu.h \
     GameStage.h \
     Gameobject.h \
     Gamewidget.h \
@@ -40,7 +42,8 @@ HEADERS  += \
     SelectStage.h \
     factory.h \
     AppleFactory.h \
-    SnakeFactory.h
+    SnakeFactory.h \
+    MenuStage.h
 
 RESOURCES += \
     gameresources.qrc

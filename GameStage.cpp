@@ -1,5 +1,5 @@
 #include "GameStage.h"
-#include "Menu.h"
+#include "MenuStage.h"
 #include "GameStage.h"
 #include "AppleObject.h"
 #include "SelectStage.h"
@@ -33,10 +33,11 @@ GameStage::GameStage(int sp)
 
 void GameStage::RunGame()
 {
-    apple->setX(rand()%490+50);
-    apple->setY(rand()%490+50);
-
-
+    do
+    {
+        apple->setX(rand()%490+50);
+        apple->setY(rand()%490+50);
+    } while (apple->getX() % 10 != 0 && apple->getY() %10 != 0);
 
     for (uint i=0; i <= 3; i++)
     {
@@ -84,9 +85,14 @@ void GameStage::moveSnake()
                 && snkVec.front()->getY()<=(apple->getY())+10))
     {
         snkVec.push_back(snakeFactory->create());
+        snkVec.back()->setX(snkVec[snkVec.size()-2]->getX());
+        snkVec.back()->setX(snkVec[snkVec.size()-2]->getY());
         snkVec.back()->setObjectTraits();
-        apple->setX(rand()%490+50);
-        apple->setY(rand()%490+50);
+        do
+        {
+            apple->setX(rand()%490+50);
+            apple->setY(rand()%490+50);
+        } while (apple->getX() % 10 != 0 && apple->getY() % 10 != 0);
         snkVec.back();
         ++score;
     }
