@@ -1,0 +1,22 @@
+#ifndef MENU_H
+#define MENU_H
+#include "game.h"
+
+class Menu : public State
+{
+public:
+    int MenuItem;
+    void BackgroundLoad();
+    void mousePressEvent();
+    void keyPress();
+
+private:
+    Menu();
+    ~Menu();
+};
+
+
+
+
+
+#endif // MENU_H
