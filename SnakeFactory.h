@@ -9,7 +9,7 @@
 class SnakeFactory final : public Factory
 {
 public:
-    GameObject * create();
+    GameObject * create() override;
 };
 
 #endif // SNAKEFACTORY_H

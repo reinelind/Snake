@@ -24,6 +24,16 @@ int AppleObject::getY() const
 
 }
 
+QColor AppleObject::getColor() const
+{
+    return color;
+}
+
+QRectF AppleObject::getRect() const
+{
+    return rectParams;
+}
+
 void AppleObject::setX(const int x)
 {
 
@@ -36,4 +46,6 @@ void AppleObject::setObjectTraits()
      rectParams=sampleRectangle;
      color = QColor(Qt::red);
 }
+
+
 

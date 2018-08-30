@@ -4,13 +4,13 @@
 #include "Gamewidget.h"
 
 
-class Loading : public State
+class Loading final : public State
 {
 Q_OBJECT
 public:
-    void BackgroundLoad(GameWidget *);
-    void mousePressEvent(GameWidget*,QMouseEvent*);
-    void keyPressEvent(GameWidget*, QKeyEvent*);
+    void BackgroundLoad(GameWidget *)              override;
+    void mousePressEvent(GameWidget*,QMouseEvent*) override;
+    void keyPressEvent(GameWidget*, QKeyEvent*)    override;
 
     Loading();
 

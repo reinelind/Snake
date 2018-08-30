@@ -3,7 +3,7 @@
 #include "LeaderBoard.h"
 
 Menu::Menu()
-    :MenuItem (1)
+    : menuItem (MENU_ITEM::START)
 {
     const QDateTime now=QDateTime::currentDateTime();
 
@@ -17,15 +17,15 @@ void Menu::BackgroundLoad(GameWidget * widget)
 {
     painter=new QPainter (widget);
     painter->drawImage(0,0,this->background->scaled(widget->size()));
-    switch (MenuItem)
+    switch (menuItem)
     {
-    case 1:
+    case MENU_ITEM::START:
         painter->drawImage(175,215,*pointer);
         break;
-    case 2:
+    case MENU_ITEM::HIGHSCORES:
         painter->drawImage(145,290,*pointer);
         break;
-    case 3:
+    case MENU_ITEM::QUIT:
         painter->drawImage(235,374,*pointer);
         break;
     }
@@ -39,45 +39,45 @@ void Menu::keyPressEvent(GameWidget* widget,QKeyEvent * event)
 {
     if (event->key()==Qt::Key_Up)
     {
-        switch (MenuItem)
+        switch (menuItem)
         {
-        case 1:
-            MenuItem = 3;
+        case MENU_ITEM::START:
+            menuItem = MENU_ITEM::QUIT ;
             break;
-        case 2:
-            MenuItem = 1;
+        case MENU_ITEM::HIGHSCORES:
+            menuItem = MENU_ITEM::START;
             break;
-        case 3:
-            MenuItem = 2;
+        case MENU_ITEM::QUIT:
+            menuItem = MENU_ITEM::HIGHSCORES;
             break;
 
         }
     }
     if (event->key()==Qt::Key_Down)
-        switch (MenuItem)
+        switch (menuItem)
         {
-        case 1:
-            MenuItem = 2;
+        case MENU_ITEM::QUIT :
+            menuItem = MENU_ITEM::START;
             break;
 
-        case 2:
-            MenuItem = 3;
+        case MENU_ITEM::START :
+            menuItem = MENU_ITEM::HIGHSCORES;
             break;
 
-        case 3:
-            MenuItem = 1;
+        case MENU_ITEM::HIGHSCORES :
+            menuItem = MENU_ITEM::QUIT;
             break;
         }
     if (event->key()==Qt::Key_Enter || event->key()==Qt::Key_Return)
-        switch (MenuItem)
+        switch (menuItem)
         {
-        case 1:
+        case MENU_ITEM::START :
             widget->setCurrent(new SelectStage());
             break;
-        case 2:
+        case MENU_ITEM::HIGHSCORES:
             widget->setCurrent(new LeaderBoard());
             break;
-        case 3:
+        case MENU_ITEM::QUIT:
             widget->quit();
             break;
         }

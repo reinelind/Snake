@@ -5,23 +5,30 @@
 #include "SelectStage.h"
 #include "LeaderBoard.h"
 
+#include <ctime>
+#include <memory>
+
 GameStage::GameStage(int sp)
-    : Speed (sp), score (0), entered (false), dir(DIRECTION::RIGHT)
+    : speed (sp), score (0), entered (false), dir(DIRECTION::RIGHT)
 {
+
+
     srand(static_cast<ulong>(time(nullptr)));
 
-    snakeFactory = new SnakeFactory;
-    appleFactory = new AppleFactory;
+
+    snakeFactory = std::make_unique <SnakeFactory>();
+    appleFactory = std::make_unique <AppleFactory>();
+    painter=std::make_unique <QPainter>();
+    timer=std::make_unique <QTimer>();
+    background=std::make_unique < QImage >(":/images/gameprocess.png");
 
     apple = appleFactory->create();
-
-
+    apple->setObjectTraits();
     snkVec.reserve(3);
-
-    background=new QImage (":/images/gameprocess.png");
     const QDateTime now=QDateTime::currentDateTime();
-    qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tGame Stage\r\n";
     GameStage::RunGame();
+
+     qDebug()<<now.toString("yyyy-MM-dd hh:mm:ss")<<now.timeZoneAbbreviation()<<"\tGame Stage\r\n";
 }
 
 void GameStage::RunGame()
@@ -29,27 +36,29 @@ void GameStage::RunGame()
     apple->setX(rand()%490+50);
     apple->setY(rand()%490+50);
 
-    apple->setObjectTraits();
+
 
     for (uint i=0; i <= 3; i++)
     {
         snkVec.push_back(snakeFactory->create());
+        snkVec[i]->setObjectTraits();
     }
 
-    snkVec.front()->setX(150);
     snkVec.front()->setY(180);
+    snkVec.front()->setX(150);
+
 
 
     for (uint i=1; i<(snkVec.size()); i++)
     {
         snkVec[i]->setX(snkVec[i-1]->getX()-10);
-        snkVec[i]->setY(snkVec[i]->getY());
+        snkVec[i]->setY(snkVec[i-1]->getY());
         snkVec[i]->setObjectTraits();
     }
 
-    timer=new QTimer();
-    connect(timer, SIGNAL(timeout()),this,SLOT(moveSnake()));
-    timer->start(Speed);
+
+    connect(timer.get(), SIGNAL(timeout()),this,SLOT(moveSnake()));
+    timer->start(speed);
 }
 
 void GameStage::moveSnake()
@@ -58,7 +67,6 @@ void GameStage::moveSnake()
     {
         snkVec[i]->setX(snkVec[i-1]->getX());
         snkVec[i]->setY(snkVec[i-1]->getY());
-
     }
 
     if (this->getDir()==GameStage::DOWN)
@@ -76,12 +84,13 @@ void GameStage::moveSnake()
                 && snkVec.front()->getY()<=(apple->getY())+10))
     {
         snkVec.push_back(snakeFactory->create());
+        snkVec.back()->setObjectTraits();
         apple->setX(rand()%490+50);
         apple->setY(rand()%490+50);
         snkVec.back();
         ++score;
     }
-    for (int i=1;i<(snkVec.size()); i++)
+    for (uint i=1;i<(snkVec.size()); i++)
         if (snkVec.front()->getX()==snkVec[i]->getX()
                 && snkVec.front()->getY()==snkVec[i]->getY())
         {
@@ -89,7 +98,11 @@ void GameStage::moveSnake()
             setHighscore();
         }
 
-    if ((snkVec.front()->getX()>547 || snkVec.front()->getX()<50) ||(snkVec.front()->getY()<50 || snkVec.front()->getY()>550)) { timer->stop(); setHighscore();}
+    if ((snkVec.front()->getX()>547
+         || snkVec.front()->getX()<50)
+            ||(snkVec.front()->getY()<50 || snkVec.front()->getY()>550))
+    { timer->stop();
+        setHighscore();}
 }
 
 void GameStage::setHighscore()
@@ -123,18 +136,18 @@ void GameStage::setHighscore()
 void GameStage::BackgroundLoad(GameWidget * widget)
 {
 
-    painter=new QPainter;
+
     painter->begin(widget);
     painter->drawImage(0,0,background->scaled(widget->size()));
-    for (int i = 0; i < snkVec.size(); i++)
+    painter->setPen(snkVec.front()->getColor());
+    for (uint i = 0; i < snkVec.size(); i++)
     {
-        painter->setPen(Qt::white);
-        painter->fillRect(QRectF(snkVec[i]->getX(),snkVec[i]->getY(),10,10),Qt::white);
+        painter->fillRect(QRectF(snkVec[i]->getX(),snkVec[i]->getY(),10,10),snkVec[i]->getColor());
         painter->drawRect(snkVec[i]->getX(),snkVec[i]->getY(),10,10);
     }
 
-    painter->setBrush(Qt::red);
-    painter->setPen(Qt::red);
+    painter->setBrush(apple->getColor());
+    painter->setPen(apple->getColor());
     painter->drawEllipse(QRectF(apple->getX(),apple->getY(),10,10));
     QFont font=widget->font();
     font.setPointSize(30);

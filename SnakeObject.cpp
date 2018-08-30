@@ -23,11 +23,16 @@ int SnakeObject::getX() const
     return x;
 }
 
-
 QColor SnakeObject::getColor() const
 {
     return color;
 }
+
+QRectF SnakeObject::getRect() const
+{
+    return rectParams;
+}
+
 
 void SnakeObject::setObjectTraits()
 {

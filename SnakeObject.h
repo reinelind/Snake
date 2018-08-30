@@ -13,8 +13,10 @@ public:
     int getX() const     override;
     int getY() const     override;
     void setObjectTraits() override;
+    QColor getColor () const  override;
+    QRectF getRect ()  const    override;
 
-    QColor getColor () const;
+
 
 
 private:

@@ -3,15 +3,15 @@
 #include "State.h"
 
 
-class LeaderBoard: public State
+class LeaderBoard final: public State
 {
 public:
 
     LeaderBoard();
 
-    void BackgroundLoad(GameWidget *);
-    void mousePressEvent(GameWidget*,QMouseEvent*);
-    void keyPressEvent(GameWidget*, QKeyEvent*);
+    void BackgroundLoad(GameWidget *)               override;
+    void mousePressEvent(GameWidget*,QMouseEvent *) override;
+    void keyPressEvent(GameWidget*, QKeyEvent *)    override;
 
     template <typename T, typename S>
     void mySortTable(std::vector<std::pair<T,S> > &);

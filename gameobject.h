@@ -10,6 +10,9 @@ public:
     virtual int getX() const = 0;
     virtual int getY() const = 0;
     virtual void setObjectTraits() = 0;
+    virtual QColor getColor () const = 0;
+    virtual QRectF getRect ()   const = 0;
+
 
     virtual ~GameObject(){}
 

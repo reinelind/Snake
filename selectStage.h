@@ -3,7 +3,7 @@
 #include "State.h"
 
 
-class SelectStage: public State
+class SelectStage final: public State
 {
 public:
     void BackgroundLoad(GameWidget *);

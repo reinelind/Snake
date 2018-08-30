@@ -5,6 +5,8 @@
 #include "factory.h"
 #include "AppleObject.h"
 
+
+
 class AppleFactory final : public Factory
 {
 public:
