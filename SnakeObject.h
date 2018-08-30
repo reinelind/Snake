@@ -17,8 +17,6 @@ public:
     QRectF getRect ()  const    override;
 
 
-
-
 private:
 
     QRectF rectParams;

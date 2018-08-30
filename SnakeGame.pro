@@ -21,10 +21,10 @@ SOURCES +=\
     LeaderBoard.cpp \
     Loading.cpp \
     main.cpp \
-    Menu.cpp \
     SelectStage.cpp \
     applefactory.cpp \
-    SnakeFactory.cpp
+    SnakeFactory.cpp \
+    MenuStage.cpp
 
 HEADERS  += \
     Game.h \

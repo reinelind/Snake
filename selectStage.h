@@ -5,14 +5,16 @@
 
 class SelectStage final: public State
 {
+    enum SELECT_ITEM {EASY, MEDIUM, HARD};
 public:
     void BackgroundLoad(GameWidget *);
     void mousePressEvent(GameWidget*,QMouseEvent*);
     void keyPressEvent(GameWidget*, QKeyEvent*);
 
     SelectStage();
-    int MenuItem=1;
 private:
+
+    SELECT_ITEM menuItem;
     QPainter *painter;
     QImage *background,*pointer;
 };

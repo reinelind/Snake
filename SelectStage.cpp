@@ -3,7 +3,7 @@
 #include "GameStage.h"
 
 SelectStage::SelectStage()
-    : MenuItem (1)
+    : menuItem (SELECT_ITEM::EASY)
 {
     background=new QImage (":/images/levelselect.png");
     pointer=new QImage(":/images/Untitled.png");
@@ -17,15 +17,15 @@ void SelectStage::BackgroundLoad(GameWidget * widget)
     painter=new QPainter;
     painter->begin(widget);
     painter->drawImage(0,0,background->scaled(widget->size()));
-    switch (MenuItem)
+    switch (menuItem)
     {
-    case 1:
+    case SELECT_ITEM :: EASY:
         painter->drawImage(225,201,*pointer);
         break;
-    case 2:
+    case SELECT_ITEM :: MEDIUM:
         painter->drawImage(205,270,*pointer);
         break;
-    case 3:
+    case SELECT_ITEM :: HARD:
         painter->drawImage(225,340,*pointer);
         break;
     }
@@ -45,53 +45,53 @@ void SelectStage::keyPressEvent(GameWidget * widget, QKeyEvent * event){
 
     if (event->key()==Qt::Key_Down)
     {
-        switch (MenuItem)
+        switch (menuItem)
         {
-        case 1:
-            MenuItem = 2;
+        case SELECT_ITEM :: EASY :
+            menuItem = SELECT_ITEM :: MEDIUM;
             break;
 
-        case 2:
-            MenuItem = 3;
+        case SELECT_ITEM :: MEDIUM:
+            menuItem = SELECT_ITEM :: HARD;
             break;
 
-        case 3:
-            MenuItem = 1;
+        case SELECT_ITEM :: HARD:
+            menuItem = SELECT_ITEM :: EASY;
             break;
         }
     }
     if (event->key()==Qt::Key_Up)
     {
 
-        switch (MenuItem)
+        switch (menuItem)
         {
-        case 1:
-            MenuItem = 3;
+         case SELECT_ITEM :: EASY:
+            menuItem = SELECT_ITEM :: HARD;
             break;
-        case 2:
-            MenuItem = 1;
+        case SELECT_ITEM :: MEDIUM:
+            menuItem = SELECT_ITEM :: EASY;
             break;
-        case 3:
-            MenuItem = 2;
+        case SELECT_ITEM :: HARD:
+            menuItem = SELECT_ITEM :: HARD;
             break;
         }
     }
 
     if (event->key()==Qt::Key_Return || event->key()==Qt::Key_Enter)
     {
-        switch (MenuItem)
+        switch (menuItem)
         {
-        case 1:
+        case SELECT_ITEM :: EASY:
             widget->setCurrent(new GameStage(200));
             widget->update();
             delete this;
             break;
-        case 2:
+        case SELECT_ITEM :: MEDIUM:
             widget->setCurrent(new GameStage(130));
             widget->update();
             delete this;
             break;
-        case 3:
+        case SELECT_ITEM :: HARD:
             widget->setCurrent(new GameStage(110));
             widget->update();
             delete this;
